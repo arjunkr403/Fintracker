@@ -3,9 +3,9 @@ import './styles.css'
 const Header = () => {
   return (
     <header className="nav">
-      Header
+    <p style={{color:'var(--white)',fontWeight:500}}>FinTraker.</p>
+    {/* <p onClick={logoutfnc}></p> */}
     </header>
   )
 }
-
 export default Header
