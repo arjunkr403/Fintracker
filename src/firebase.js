@@ -1,15 +1,15 @@
 import { initializeApp } from "firebase/app";
-import { getAuth,GoogleAuthProvider } from "firebase/auth";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey:import.meta.env.FIREBASE_API_KEY,
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "fintraker.firebaseapp.com",
   projectId: "fintraker",
   storageBucket: "fintraker.appspot.com",
   messagingSenderId: "635249668615",
-  appId:import.meta.env.FIREBASE_API_ID
+  appId: process.env.REACT_APP_FIREBASE_API_ID,
 };
 
 // Initialize Firebase
@@ -19,4 +19,4 @@ const analytics = getAnalytics(app);
 const provider = new GoogleAuthProvider();
 const db = getFirestore(app);
 
-export { auth, provider, db, setDoc, doc,analytics };
+export { auth, provider, db, setDoc, doc, analytics };

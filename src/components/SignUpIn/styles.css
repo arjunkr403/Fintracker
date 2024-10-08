@@ -1,5 +1,4 @@
 .signbox{
-    /* margin-right: 15px; */
     width: 50%;
     max-width: 500px;
     height: auto;
@@ -36,4 +35,55 @@
         transition: all 2s;
     }
     
+}
+.logbox{
+    width: 50%;
+    max-width: 500px;
+    height: auto;
+    box-shadow: var(--shadow);
+    border-radius: 1rem;
+    padding: 1rem 1.5rem;
+}
+.title{
+    font-weight: 500;
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+.pass{
+    margin: -1rem 0;
+    display: flex;
+    align-items: center;
+
+    .input-box{
+        flex: 1;
+    }
+    span{
+        font-size: 0.8rem;
+        cursor: pointer;
+        font-weight: 500;
+        color: var(--theme);
+        padding: 0.5rem 0;
+        border-radius: 0.5rem;
+        opacity: 0.8;
+    }
+    span:hover{
+        opacity: 1;
+        color: var(--theme);
+        transition: all 2s;
+    }
+    
+}
+
+.log{
+    cursor: pointer;
+    margin: 0;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 400;
+
+    span{
+        text-decoration: underline;
+        color: var(--theme);
+    }
 }
