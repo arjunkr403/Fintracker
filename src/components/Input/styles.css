@@ -1,0 +1,28 @@
+.input-box{
+    margin-bottom: 1.5rem;
+}
+
+.label{
+    text-transform: capitalize;
+    margin-bottom: 0.2rem;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.custom{
+    width: 100%;
+    border-width: 0;
+    border-bottom-width: 1px;
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.custom:focus{
+    outline: none;
+    opacity: 1;
+    transition: all 0.2s;
+}
+.custom::placeholder{
+    color: gray;
+}
