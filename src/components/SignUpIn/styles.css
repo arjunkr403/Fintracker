@@ -1,6 +1,7 @@
 .signbox{
     width: 50%;
     max-width: 500px;
+    min-width: 400px;
     height: auto;
     box-shadow: var(--shadow);
     border-radius: 1rem;

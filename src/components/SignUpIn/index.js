@@ -116,7 +116,7 @@ const SignUpIn = () => {
           email: user.email,
           photoURL: user.photoURL
             ? user.photoURL
-            : "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?w=740&t=st=1728717079~exp=1728717679~hmac=2bdafeb4578522b80c705f31918002727d49f2e374cd9ba9d81a69a4a41133ff",
+            : "/default.png",
           createdAt: new Date(),
         });
         setLoading(false);

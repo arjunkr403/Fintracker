@@ -1,0 +1,34 @@
+.card-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 2rem auto;
+    gap:4rem;
+}
+
+.ant-card-head{
+    padding-top: 1rem !important;
+    border-bottom: none !important;
+    font-size: clamp(1.3rem, 1.1rem + 0.3333vw, 1.5rem) !important;
+}
+.ant-card-body{
+    padding-top: 0.5rem !important;
+}
+.cardbox{
+    flex: 1;
+    /* margin: 2rem; */
+    font-family: "Montserrat",sans-serif !important;
+    box-shadow: var(--shadow);
+    min-width: 400px;
+    
+
+    p{  font-weight: 500;
+        font-size: clamp(0.9rem, 0.7rem + 0.3333vw, 1.1rem) !important;
+        margin: 0 !important;
+    }
+    .btn-blue{
+        margin-bottom: 0 !important;
+    }
+}
+

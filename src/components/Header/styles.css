@@ -1,6 +1,6 @@
 .nav{
     background-color: var(--theme);
-    padding:0.5rem 1.5rem;
+    padding:1rem 1.5rem;
     position: sticky;
     top: 0;
     left: 0;
@@ -13,28 +13,22 @@
         color: white;
         font-weight: 500;
         font-size: clamp(1.1rem, 1rem + 0.3333vw, 1.3rem);
+        margin: 0.5rem 0;
     }
-    
-    .logo{
+      .navbar-link {
         display: flex;
-        justify-items: center;
         align-items: center;
-
-
-        .avatar{
-            border-radius: 50%;
-            height:30px;
-            width: 30px;
-            object-fit: cover;
-        }
-        .logoLink{
-            flex: 1;
-            font-size: clamp(1rem, 0.9rem + 0.3333vw, 1.2rem);
-            color: white;
-            font-weight: 500;
-            cursor: pointer;
-            margin-left: 0.8rem;
-        }
-    }
+        justify-content: center;
+        color: #e3e3e3;
+        font-weight: 500;
+        margin:.0.5rem 0;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+      
+      .navbar-link:hover {
+        color: #fff;
+        transition: all 0.3s;
+      }
 
 }
