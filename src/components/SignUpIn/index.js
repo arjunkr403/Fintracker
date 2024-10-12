@@ -5,11 +5,13 @@ import Button from "../Button";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
-import { auth, db } from "../../firebase";
+import { auth, db, provider } from "../../firebase";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
+import Loader from "../Loader/loader";
 
 const SignUpIn = () => {
   const nav = useNavigate();
@@ -33,60 +35,71 @@ const SignUpIn = () => {
     setLoginForm(!loginForm);
   };
   //handle submit for signUp using email and password
-  const signupWithEmail = () => {
+  const signupWithEmail = async (e) => {
+    e.preventDefault();
     setLoading(true);
-    if (name !== "" && email !== "" && password !== "" && confirmP !== "") {
-      if (password === confirmP) {
-        createUserWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
-            const user = userCredential.user;
-            toast.success("Sign up successful!!!");
-            createDoc(user);
-            //after successful login clear the information displaying in form
-            setLoading(false);
-            setName("");
-            setEmail("");
-            setPassword("");
-            setConfirmP("");
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            toast.error(errorCode, errorMessage);
-            setLoading(false);
-          });
+    try {
+      if (name !== "" && email !== "" && password !== "" && confirmP !== "") {
+        if (password === confirmP) {
+          const result =await createUserWithEmailAndPassword(auth, email, password);
+          const user = result.user;
+          await createDoc(user);
+          setLoading(false);
+          toast.success("Sign up successful!!!");
+          nav("/dashboard");
+          
+        } else {
+          toast.error("Passwords do not match!!");
+          setLoading(false);
+        }
       } else {
-        toast.error("Passwords do not match!!");
+        toast.error("All fields are mandatory!");
         setLoading(false);
       }
-    } else {
-      toast.error("All fields are mandatory!");
+    } catch (error) {
+      toast.error(error.message);
+      console.error("Error signing up with email and password: ", error.message);
       setLoading(false);
     }
   };
 
   //handle submit for signin using email and password
-  const loginWithEmail = () => {
+  const loginWithEmail = async (e) => {
+    e.preventDefault();
     setLoading(true);
-    if (email !== "" && password !== "") {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          setEmail("");
-          setPassword("");
-          nav("/dashboard");
-          toast.success("User logged in successfully!!!");
-          setLoading(false);
-        })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          toast.error(errorCode, errorMessage);
-          setLoading(false);
-        });
-    } else {
-      toast.error("All fields are mandatory!");
+    try {
+      if (email !== "" && password !== "") {
+        const result = await signInWithEmailAndPassword(auth, email, password);
+        const user = result.user;
+        setLoading(false);
+        toast.success("User logged in successfully!!!");
+        nav("/dashboard");
+      } else {
+        toast.error("All fields are mandatory!");
+        setLoading(false);
+      }
+    } catch (error) {
+      toast.error(error.message);
+      console.error("Error signing in with email and password: ", error.message);
       setLoading(false);
+    }
+  };
+
+  //login using google
+
+  const loginWithGmail = async () => {
+    setLoading(true);
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      await createDoc(user);
+      setLoading(false);
+      toast.success("User Authenticated Successfully!");
+      nav("/dashboard");
+    } catch (error) {
+      setLoading(false);
+      toast.error(error.message);
+      console.error("Error signing in with Google: ", error.message);
     }
   };
 
@@ -95,29 +108,34 @@ const SignUpIn = () => {
     if (!user) return;
     const userRef = doc(db, "users", user.uid);
     const userData = await getDoc(userRef);
-    if(!userData.exists()){
+    if (!userData.exists()) {
+      // Create a new document in the "users" collection
       try {
-        await setDoc(doc(db, "users", user.uid),{
-          name:user.displayname? user.displayname : name,
-          email:user.email,
-          photoURL: user.PhotoURL ? user.photoURL : "",
+        await setDoc(doc(db, "users", user.uid), {
+          name: user.displayName ? user.displayName : name,
+          email: user.email,
+          photoURL: user.photoURL
+            ? user.photoURL
+            : "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?w=740&t=st=1728717079~exp=1728717679~hmac=2bdafeb4578522b80c705f31918002727d49f2e374cd9ba9d81a69a4a41133ff",
           createdAt: new Date(),
         });
-        toast.success("Doc Created!!!");
         setLoading(false);
+        // toast.success("Doc Created!!!");
+        nav("/dashboard");
       } catch (error) {
         toast.error(error.message);
         setLoading(false);
       }
-    }
-    else{
-      toast.error("User already exists!");
+    } else {
+      // toast.error("User already exists!");
       setLoading(false);
     }
   }
 
   return (
     <>
+      {loading && <Loader />}
+      {/*showing loaderwhen loading is true*/}
       {loginForm ? (
         <div className="logbox">
           <h2 className="title">
@@ -148,14 +166,15 @@ const SignUpIn = () => {
             </div>
             <Button
               disabled={loading}
-              text={loading ? "Loading..." : "Login using Email and Password"}
+              text={"Login using Email and Password"}
               onClick={loginWithEmail}
             />
             <p style={{ textAlign: "center", margin: "-0.2rem" }}>or</p>
             <Button
-              text={loading ? "Loading..." : "Login using Google"}
+              text={"Login using Google"}
               blue={true}
               disabled={loading}
+              onClick={loginWithGmail}
             />
           </form>
           <p className="log">
@@ -212,14 +231,15 @@ const SignUpIn = () => {
 
             <Button
               disabled={loading}
-              text={loading ? "Loading..." : "Sign Up using Email and Password"}
+              text={"Sign Up using Email and Password"}
               onClick={signupWithEmail}
             />
             <p style={{ textAlign: "center", margin: "-0.2rem" }}>or</p>
             <Button
-              text={loading ? "Loading..." : "Sign Up using Google"}
+              text={"Sign Up using Google"}
               blue={true}
               disabled={loading}
+              onClick={loginWithGmail}
             />
           </form>
           <p className="log">

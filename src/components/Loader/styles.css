@@ -1,0 +1,73 @@
+/* Full-screen loader overlay */
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.45); /* Translucent black background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensure it appears above other content */
+  }
+  
+  .loadingio-spinner-pulse-2by998twmg8 {
+    width: 200px;
+    height: 200px;
+    display: inline-block;
+    overflow: hidden;
+    background: none; /* Remove background so the translucent effect shows */
+  }
+  
+  .ldio-yzaezf3dcmj {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform: translateZ(0) scale(1);
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+  }
+  
+  .ldio-yzaezf3dcmj div {
+    box-sizing: content-box;
+    position: absolute;
+    width: 20px;
+  }
+  
+  .ldio-yzaezf3dcmj div:nth-child(1) {
+    left: 40px;
+    background: rgba(0, 54, 163, 0.25);
+    animation: ldio-yzaezf3dcmj-1 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+    animation-delay: -0.2s;
+  }
+  
+  .ldio-yzaezf3dcmj div:nth-child(2) {
+    left: 90px;
+    background: rgba(0, 54, 163, 0.5);
+    animation: ldio-yzaezf3dcmj-2 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+    animation-delay: -0.1s;
+  }
+  
+  .ldio-yzaezf3dcmj div:nth-child(3) {
+    left: 140px;
+    background: #0036a3;
+    animation: ldio-yzaezf3dcmj-3 1s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+  }
+  @keyframes ldio-yzaezf3dcmj-1 {
+    0% { top: 52px; height: 96px; }
+    50% { top: 76px; height: 48px; }
+    100% { top: 76px; height: 48px; }
+  }
+  
+  @keyframes ldio-yzaezf3dcmj-2 {
+    0% { top: 58px; height: 84px; }
+    50% { top: 76px; height: 48px; }
+    100% { top: 76px; height: 48px; }
+  }
+  
+  @keyframes ldio-yzaezf3dcmj-3 {
+    0% { top: 64px; height: 72px; }
+    50% { top: 76px; height: 48px; }
+    100% { top: 76px; height: 48px; }
+  }
