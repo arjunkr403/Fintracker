@@ -7,7 +7,7 @@ function AddExpenseModal({ expenseVisible, handleExpenseCancel, onFinish }) {
     <Modal
       style={{ fontWeight: 600 }}
       title="Add Expense"
-      visible={expenseVisible}
+      open={expenseVisible}
       onCancel={handleExpenseCancel}
       footer={null}
     >
@@ -72,7 +72,7 @@ function AddExpenseModal({ expenseVisible, handleExpenseCancel, onFinish }) {
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="btn btn-blue">
+          <Button type="primary" htmlType="submit" className="btn btn-blue" style={{marginBottom:0}}>
             Add Expense
           </Button>
         </Form.Item>

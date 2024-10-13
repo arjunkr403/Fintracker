@@ -7,7 +7,7 @@ function AddIncomeModal({ incomeVisible, handleIncomeCancel, onFinish }) {
     <Modal
       style={{ fontWeight: 600 }}
       title="Add Income"
-      visible={incomeVisible}
+      open={incomeVisible}
       onCancel={handleIncomeCancel}
       footer={null}
     >
@@ -68,10 +68,11 @@ function AddIncomeModal({ incomeVisible, handleIncomeCancel, onFinish }) {
             <Select.Option value="salary">Salary</Select.Option>
             <Select.Option value="investment">Investment</Select.Option>
             <Select.Option value="freelance">Freelance</Select.Option>
+            <Select.Option value="others">Others</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="btn btn-blue">
+          <Button type="primary" htmlType="submit" className="btn btn-blue" style={{marginBottom:0}}>
             Add Income
           </Button>
         </Form.Item>

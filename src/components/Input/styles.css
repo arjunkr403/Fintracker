@@ -9,7 +9,7 @@
     font-weight: 400;
 }
 
-.custom{
+.custom-input{
     width: 100%;
     border-width: 0;
     border-bottom-width: 1px;
@@ -18,11 +18,11 @@
     opacity: 0.8;
 }
 
-.custom:focus{
+.custom-input:focus{
     outline: none;
     opacity: 1;
     transition: all 0.2s;
 }
-.custom::placeholder{
+.custom-input::placeholder{
     color: gray;
 }

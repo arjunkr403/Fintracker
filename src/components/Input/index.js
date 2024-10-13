@@ -4,7 +4,7 @@ function InputBox({label,state,setState,placeholder,type="text"}) {
   return (
     <div class="input-box">
       <p className="label">{label}</p>
-      <input className="custom" value={state} placeholder={placeholder}
+      <input className="custom-input" value={state} placeholder={placeholder}
       onChange={(e)=>setState(e.target.value)} type={type} required/>
     </div>
   );
