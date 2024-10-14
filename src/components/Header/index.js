@@ -5,6 +5,7 @@ import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/loader";
 import { toast } from "react-toastify";
+import userImg from '../../assets/user.svg';
 const Header = () => {
   const nav = useNavigate();
   const [user,loading] = useAuthState(auth);
@@ -31,7 +32,7 @@ const Header = () => {
         <p className="navbar-link" onClick={logoutfnc}>
           <span style={{ marginRight: "1rem" }}>
             <img
-              src={user.photoURL ? user.photoURL : "/default.png"}
+              src={user.photoURL ? user.photoURL : userImg}
               width={"32"}
               style={{ borderRadius: "50%" }}
             />

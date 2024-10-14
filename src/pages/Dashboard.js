@@ -6,21 +6,40 @@ import AddExpenseModal from "../components/Modals/addExpense";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
 import { addDoc, collection, getDocs, query } from "firebase/firestore";
-import moment from "moment";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader/loader";
+import TransactionTable from "../components/TransactionTable";
 
 const Dashboard = () => {
   const [user] = useAuthState(auth);
   const [loading,setLoading]=useState(false);
   const [expenseVisible, setExpenseVisible] = useState(false);
   const [incomeVisible, setIncomeVisible] = useState(false);
-  const [transaction, setTransaction] = useState([]);
+  const [transactions, setTransaction] = useState([]);
+  const [income, setIncome] = useState(0);
+  const [expense, setExpense] = useState(0);
+  const [balance,setBalance]=useState(0);
 
   //Calculate the initial balance ,income , and expenses when the component loads on the web page
-  // useEffect(()=>{
-  //   // calBalance();
-  // },[transaction]);
+  useEffect(()=>{
+    calBalance();
+  },[transactions]);
+
+  const calBalance=()=>{
+    let incomeTotal=0;
+    let expenseTotal=0;
+    transactions.forEach((transaction)=>{
+      if(transaction.type==="income"){
+        incomeTotal+=transaction.amount;
+      }
+      else{
+        expenseTotal+=transaction.amount;
+      }
+  });
+  setIncome(incomeTotal);
+  setExpense(expenseTotal);
+  setBalance(incomeTotal-expenseTotal);
+  };
 
   // below two functions will make the state value true therefore modal will be visible
 
@@ -42,24 +61,28 @@ const Dashboard = () => {
   const onFinish = (values, type) => {
     const newTransaction = {
       type: type,
-      date: moment(values.date).format("YYYY-MM-DD"),
+      date:values.date.format("YYYY-MM-DD"),
       amount: parseFloat(values.amount),
       tag: values.tag,
       name: values.name,
     };
+    //storing the current transaction and passing as prop to addTransaction
     addTransaction(newTransaction);
   };
-  //to add the transaction collection to corresponding user
-
+  //to add the transaction collection to corresponding user in firestore
   const addTransaction = async (transaction) => {
     setLoading(true);
     try {
       //adding the transaction doc to the specified parent collection and store its reference in docRef
       const docRef = await addDoc(
         collection(db, `users/${user.uid}/transactions`),
-        transaction
-      );
+        transaction);
       console.log("Doc written with Id:", docRef.id);
+
+      //adding the new transaction to the transactions state using ...transactions which implies keeping the previous records as it is and adding new by passing as argument in setTransaction
+      setTransaction([...transactions,transaction]);
+      //update dashboard directly after addding transaction
+      calBalance();
       setLoading(false);
       toast.success("Transaction added successfully!!!");
     } catch (e) {
@@ -72,7 +95,7 @@ const Dashboard = () => {
   //Get all transactions when Dashboard gets rendered using useEffect
   useEffect(()=>{
     fetchTransaction();
-  },[]);
+  },[user]);
   const fetchTransaction = async () => {
     setLoading(true);
     if(user){
@@ -85,7 +108,7 @@ const Dashboard = () => {
           transactionArray.push(doc.data());
         });
         setTransaction(transactionArray);
-        console.log(transactionArray);
+        // console.log(transactionArray);
         setLoading(false);
         toast.success("Transactions fetched!!!");
       } catch (e) {
@@ -102,9 +125,13 @@ const Dashboard = () => {
   return (
     <>
     {loading && <Loader/>}
-    <div>
+    <div style={{marginBottom:"1rem"}}>
       <Header />
-      <Cards showExpenses={showExpenses} showIncome={showIncome} />
+      <Cards 
+      income={income}
+      expense={expense}
+      balance={balance}
+      showExpenses={showExpenses} showIncome={showIncome} />
       {/* Modal is a popUp window used here to handle task such as addding income ,expenses 
         it has ``visible`` attr that shows that modal is visible or not 
         other attr are
@@ -120,6 +147,7 @@ const Dashboard = () => {
         handleExpenseCancel={handleExpenseCancel}
         onFinish={onFinish}
       />
+      <TransactionTable transactions={transactions}/>
     </div>
     </>
   );

@@ -3,15 +3,14 @@
 :root {
   --theme: #0036A3;
   --black: #212121;
-  --white: #fff;
   --shadow: 0px 0px 30px 8px rgba(227,227,227,0.75);
 }
 body {
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif !important; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 input{
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
 }

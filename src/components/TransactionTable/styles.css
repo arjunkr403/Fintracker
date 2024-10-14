@@ -1,0 +1,77 @@
+.input-flex{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        box-shadow: var(--shadow);
+        gap: 0.5rem;
+        width: 100%;
+        border-radius: 0.5rem;
+        padding: 0.2rem 0.5rem;
+        
+        
+        input{
+            width: 100%;
+            padding: 0.5rem;
+            border: 0;
+            
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+    
+    .ant-table{
+        font-family: 'Montserrat',sans-serif !important;
+    }
+    .select-input{
+        display: flex;
+        align-items: center;
+        width: 30%;
+        margin-right: 10;
+        padding: 1.2rem 0.5rem !important;
+        border: none;
+        
+        border-radius: 0.5rem !important;
+        box-shadow: var(--shadow);
+    }
+    
+    .select-input-2 > div {
+        border-width: 0px !important;
+        border-bottom-width: 1px !important;
+        border-radius: 0 !important;
+        border-color: #000 !important;
+    }
+    
+    .select-input > div {
+        border: 0px solid #fff !important;
+    }
+    
+    
+    .my-table{
+        box-shadow: var(--shadow);
+        border-radius: 0.5rem ;
+        padding: 2rem;
+        margin-bottom: 2rem !important;
+
+        .btn {
+            width: 100%;
+        }
+        .btn-blue {
+            width: 100%;
+        }
+
+        .anticon{
+            padding: 0.5rem;
+            border: 1px solid;
+            border-radius: 0.2rem;
+        }
+        .ant-pagination-item{
+            border-radius: 0.2rem;
+        }
+
+    }
+    .radio-input{
+        border-radius: 0 !important;
+    }
+
+    
