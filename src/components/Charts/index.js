@@ -41,8 +41,10 @@ const Charts = ({ sortedTransactions }) => {
       newSpending[3].amount += item.amount;
     }
   });
+  const filteredSpending = newSpending.filter((item) => item.amount > 0);
+
   const spendingConfig = {
-    data: newSpending,
+    data: filteredSpending,
     width: 800,
     autoFit:false,
     angleField: "amount",
