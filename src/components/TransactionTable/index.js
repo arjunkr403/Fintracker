@@ -6,7 +6,7 @@ import Button from "../Button";
 import { parse, unparse } from "papaparse";
 import Loader from "../Loader/loader";
 import { toast } from "react-toastify";
-function TransactionTable({ transactions, addTransaction, fetchTransaction }) {
+function TransactionTable({ transactions,addTransaction, fetchTransaction }) {
   const { Option } = Select;
   const [search, setSearch] = useState("");
   const [type, setType] = useState("");
@@ -47,9 +47,9 @@ function TransactionTable({ transactions, addTransaction, fetchTransaction }) {
   );
   //function to sort the transactions using sort function where "a" is previous and "b" is next
   //JS uses insert sort by default
-  const sortTransactions = filterSearch.sort((a, b) => {
+  const sortTransactions = [...filterSearch].sort((a, b) => {
     if (sortFilter === "date") {
-      return new Date(a.date) - Date(b.date);
+      return new Date(a.date) - new Date(b.date);
     } else if (sortFilter === "amount") {
       return a.amount - b.amount;
     } else return 0;

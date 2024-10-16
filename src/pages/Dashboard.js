@@ -9,6 +9,9 @@ import { addDoc, collection, getDocs, query } from "firebase/firestore";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader/loader";
 import TransactionTable from "../components/TransactionTable";
+import Charts from "../components/Charts";
+import NoTransaction from "../NoTransaction";
+import moment from "moment";
 
 const Dashboard = () => {
   const [user] = useAuthState(auth);
@@ -61,7 +64,7 @@ const Dashboard = () => {
   const onFinish = (values, type) => {
     const newTransaction = {
       type: type,
-      date:values.date.format("YYYY-MM-DD"),
+      date:moment(values.date).format("YYYY-MM-DD"),
       amount: parseFloat(values.amount),
       tag: values.tag,
       name: values.name,
@@ -123,6 +126,9 @@ const Dashboard = () => {
     }
   };
 
+  let sortedTransactions = [...transactions].sort((a, b) => {
+    return  new Date(a.date) - new Date(b.date);
+});
 
   return (
     <>
@@ -149,7 +155,9 @@ const Dashboard = () => {
         handleExpenseCancel={handleExpenseCancel}
         onFinish={onFinish}
       />
-      <TransactionTable transactions={transactions} fetchTransaction={fetchTransaction} addTransaction={addTransaction}/>
+      {transactions.length!==0 ?(<Charts transactions={transactions} sortedTransactions={sortedTransactions}/>):(
+        <NoTransaction/>)}
+      <TransactionTable transactions={transactions}fetchTransaction={fetchTransaction} addTransaction={addTransaction}/>
     </div>
     </>
   );
