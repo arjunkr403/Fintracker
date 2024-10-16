@@ -5,7 +5,7 @@ import AddIncomeModal from "../components/Modals/addIncome";
 import AddExpenseModal from "../components/Modals/addExpense";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, db } from "../firebase";
-import { addDoc, collection, getDocs, query } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDocs, query } from "firebase/firestore";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader/loader";
 import TransactionTable from "../components/TransactionTable";
@@ -27,6 +27,42 @@ const Dashboard = () => {
   useEffect(()=>{
     calBalance();
   },[transactions]);
+
+
+  const resetBalance= async () => {
+    setLoading(true);
+    if (user) {
+      try {
+        // Query all transactions for the logged-in user
+        const q = query(collection(db, `users/${user.uid}/transactions`));
+        const querySnapshot = await getDocs(q);
+
+        // Delete each transaction
+        const deletePromises = querySnapshot.docs.map((transactionDoc) =>
+          deleteDoc(doc(db, `users/${user.uid}/transactions`, transactionDoc.id))
+        );
+        await Promise.all(deletePromises);
+
+        // Reset local state
+        setIncome(0);
+        setExpense(0);
+        setBalance(0);
+        setTransaction([]); // Clears the transactions
+
+        toast.success("All transactions and balance have been reset!");
+
+        setLoading(false);
+      } catch (error) {
+        console.error("Error deleting transactions: ", error);
+        toast.error("Failed to reset transactions.");
+        setLoading(false);
+      }
+      setLoading(false);
+    } else {
+      toast.error("No user found.");
+      setLoading(false);
+    }
+  };
 
   const calBalance=()=>{
     let incomeTotal=0;
@@ -139,6 +175,7 @@ const Dashboard = () => {
       income={income}
       expense={expense}
       balance={balance}
+      resetBalance={resetBalance}
       showExpenses={showExpenses} showIncome={showIncome} />
       {/* Modal is a popUp window used here to handle task such as addding income ,expenses 
         it has ``visible`` attr that shows that modal is visible or not 
