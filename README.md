@@ -1,11 +1,15 @@
 npm install
 
-npm i react-router-dom
+extra packages that will get installed
 
-npm i firebase
+react-router-dom
 
-npm i react-toastify
+firebase
 
-npm i react-firebase-hooks
+react-toastify
 
-npm i antd ---> react lib used for cards and other high quality prebuilt components
+react-firebase-hooks
+
+antd ---> react lib used for cards and other high quality prebuilt components
+
+papaparse ---> provides a simple and efficient way to read and write CSV files, often used for import and export task

@@ -30,10 +30,10 @@ const Header = () => {
         <p className="title">FinTraker.</p>
         {user ? (
         <p className="navbar-link" onClick={logoutfnc}>
-          <span style={{ marginRight: "1rem" }}>
+          <span style={{ marginRight: "0.5rem" }}>
             <img
               src={user.photoURL ? user.photoURL : userImg}
-              width={"32"}
+              width={"28"}
               style={{ borderRadius: "50%" }}
             />
           </span>

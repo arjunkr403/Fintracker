@@ -70,7 +70,7 @@ const Dashboard = () => {
     addTransaction(newTransaction);
   };
   //to add the transaction collection to corresponding user in firestore
-  const addTransaction = async (transaction) => {
+  const addTransaction = async (transaction,many) => {
     setLoading(true);
     try {
       //adding the transaction doc to the specified parent collection and store its reference in docRef
@@ -84,7 +84,9 @@ const Dashboard = () => {
       //update dashboard directly after addding transaction
       calBalance();
       setLoading(false);
-      toast.success("Transaction added successfully!!!");
+      if(!many){
+        toast.success("Transaction added successfully!!!");
+      }
     } catch (e) {
       console.error("Error adding document: ", e);
       setLoading(false);
@@ -147,7 +149,7 @@ const Dashboard = () => {
         handleExpenseCancel={handleExpenseCancel}
         onFinish={onFinish}
       />
-      <TransactionTable transactions={transactions}/>
+      <TransactionTable transactions={transactions} fetchTransaction={fetchTransaction} addTransaction={addTransaction}/>
     </div>
     </>
   );
