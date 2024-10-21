@@ -5,7 +5,7 @@
 .label{
     text-transform: capitalize;
     margin-bottom: 0.2rem;
-    font-size: 1rem;
+    font-size: clamp(0.7rem, 0.5333rem + 0.3889vw, 1rem);
     font-weight: 400;
 }
 
@@ -14,7 +14,7 @@
     border-width: 0;
     border-bottom-width: 1px;
     padding: 0.5rem 0;
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 0.6333rem + 0.2222vw, 0.9rem);
     opacity: 0.8;
 }
 
