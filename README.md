@@ -1,17 +1,31 @@
-npm install
+# Fintracker - Personal Finance Tracking App
+## Overview
+Fintracker is a personal finance tracking web app built with React, Firebase, and Ant Design, helping users manage their finances by tracking expenses, generating reports, and importing/exporting CSV data.
 
-extra packages that will get installed
+## Features
+- User authentication (Firebase)
+- Add, edit, and delete expenses
+- Export/import CSV data using PapaParse
+- Visualizations with Ant Design Charts
+- Responsive design using Ant Design UI components
 
-react-router-dom
+## Tech Stack
+- **Frontend**: React, Ant Design, React Router
+- **Backend**: Firebase (Authentication, Firestore)
+- **Others**: React Toastify, React Firebase Hooks
 
-firebase
+## Installation
+1. Clone the repository:  
+   `git clone https://github.com/arjunkr403/Fintracker.git`
+2. Install dependencies:  
+   `npm install`
+3. Set up Firebase in a `.env` file.
+4. Run the app:  
+   `npm start`
 
-react-toastify
-
-react-firebase-hooks
-
-antd ---> react lib used for cards and other high quality prebuilt components
-
-papaparse ---> provides a simple and efficient way to read and write CSV files, often used for import and export task
-
-ant-design/charts--->for visual representation of data
+## Dependencies
+- React
+- Firebase
+- React Router DOM
+- Ant Design
+- PapaParse
